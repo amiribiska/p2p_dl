@@ -5,10 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.nes.controller.MainFrameController;
 
 import java.io.IOException;
-import java.net.URL;
-
 
 public class App extends Application {
 
@@ -18,10 +17,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        URL fxmlUrl = getClass().getResource("/mainFrame.fxml");
-        System.out.println(fxmlUrl); // Debug: should print something like file:/.../mainFrame.fxml
+        // Load the FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mainFrame.fxml"));
+        Parent root = loader.load(); // Now the controller is instantiated
 
-        Parent root = FXMLLoader.load(fxmlUrl);
+        MainFrameController controller = loader.getController();
+
+        controller.setStage(stage);
+
         stage.setTitle("P2P Downloader");
         stage.setScene(new Scene(root));
         stage.show();
